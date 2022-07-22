@@ -1,0 +1,9 @@
+{
+	"name": "adflab-JLLB",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "10d161e8-75e6-4c49-b8d5-1c1c17ca78f4",
+		"tenantId": "f4ae23f4-e575-45b6-9556-69069681ee98"
+	}
+}
