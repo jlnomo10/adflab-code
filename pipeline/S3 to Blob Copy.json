@@ -59,8 +59,82 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Send Success Email",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "S3 to Azure blob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-61.eastus2.logic.azure.com:443/workflows/0800b0183c4b44d4b14be47fb146fa73/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8ha-JHwMWoICJbs4HtGkr2HukwcdzyR0_kWHjj69tOQ",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "Application/json"
+					},
+					"body": {
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"successtype": "Succeeded",
+						"message": "@{activity('S3 to Azure Blob').output.dataWritten}",
+						"pipelineName": "@{pipeline().Pipeline}",
+						"recipient": "@{pipeline().parameters.recipient}"
+					}
+				}
+			},
+			{
+				"name": "Send Failure Email",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "S3 to Azure blob",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-61.eastus2.logic.azure.com:443/workflows/0800b0183c4b44d4b14be47fb146fa73/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8ha-JHwMWoICJbs4HtGkr2HukwcdzyR0_kWHjj69tOQ",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "Application/json"
+					},
+					"body": {
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"successtype": "Failed",
+						"message": "@{activity('S3 to Azure Blob').error.message}",
+						"pipelineName": "@{pipeline().Pipeline}",
+						"recipient": "@{pipeline().parameters.recipient}"
+					}
+				}
 			}
 		],
+		"parameters": {
+			"recipient": {
+				"type": "string",
+				"defaultValue": "jlozano@twoconnect.com"
+			}
+		},
 		"annotations": []
 	}
 }
