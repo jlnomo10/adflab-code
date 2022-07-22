@@ -23,6 +23,15 @@
 		"HDI_ADFLab_servicePrincipalKey": {
 			"value": ""
 		},
+		"HDInsightLinkedService_clusterPassword": {
+			"value": ""
+		},
+		"HDInsightLinkedService_clusterSshPassword": {
+			"value": ""
+		},
+		"HDInsightLinkedService_servicePrincipalKey": {
+			"value": ""
+		},
 		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 			"value": "AKIAWA72LU6M32EQG5RM"
 		},
@@ -55,6 +64,24 @@
 		},
 		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
 			"value": "sa"
+		},
+		"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"value": "1292e553-d96d-413f-9732-b33ffa3c61d7"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"value": "adflab-test"
+		},
+		"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"value": "fd191d4e-4aff-49a7-a8b1-5176c3018752"
+		},
+		"HDInsightLinkedService_properties_typeProperties_tenant": {
+			"value": "f4ae23f4-e575-45b6-9556-69069681ee98"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"value": "admin"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"value": "sshuser"
 		},
 		"containerUri": {
 			"value": ""

@@ -31,6 +31,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'HDI_ADFLab'"
 		},
+		"HDInsightLinkedService_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDInsightLinkedService'"
+		},
 		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 			"type": "string",
 			"defaultValue": "AKIAWA72LU6M32EQG5RM"
@@ -73,6 +85,30 @@
 		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
 			"type": "string",
 			"defaultValue": "sa"
+		},
+		"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "1292e553-d96d-413f-9732-b33ffa3c61d7"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "adflab-test"
+		},
+		"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "fd191d4e-4aff-49a7-a8b1-5176c3018752"
+		},
+		"HDInsightLinkedService_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "f4ae23f4-e575-45b6-9556-69069681ee98"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "sshuser"
 		},
 		"containerUri": {
 			"type": "string",
@@ -119,6 +155,15 @@
 					"HDI_ADFLab_servicePrincipalKey": {
 						"value": "[parameters('HDI_ADFLab_servicePrincipalKey')]"
 					},
+					"HDInsightLinkedService_clusterPassword": {
+						"value": "[parameters('HDInsightLinkedService_clusterPassword')]"
+					},
+					"HDInsightLinkedService_clusterSshPassword": {
+						"value": "[parameters('HDInsightLinkedService_clusterSshPassword')]"
+					},
+					"HDInsightLinkedService_servicePrincipalKey": {
+						"value": "[parameters('HDInsightLinkedService_servicePrincipalKey')]"
+					},
 					"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 						"value": "[parameters('AmazonS3_Source_properties_typeProperties_accessKeyId')]"
 					},
@@ -151,6 +196,24 @@
 					},
 					"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
 						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterSshUserName')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_hostSubscriptionId')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterResourceGroup')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_servicePrincipalId')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_tenant": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_tenant')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterUserName')]"
+					},
+					"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+						"value": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterSshUserName')]"
 					}
 				}
 			},

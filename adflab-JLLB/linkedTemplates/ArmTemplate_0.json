@@ -31,6 +31,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'HDI_ADFLab'"
 		},
+		"HDInsightLinkedService_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDInsightLinkedService'"
+		},
+		"HDInsightLinkedService_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDInsightLinkedService'"
+		},
 		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 			"type": "string",
 			"defaultValue": "AKIAWA72LU6M32EQG5RM"
@@ -73,6 +85,30 @@
 		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
 			"type": "string",
 			"defaultValue": "sa"
+		},
+		"HDInsightLinkedService_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "1292e553-d96d-413f-9732-b33ffa3c61d7"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "adflab-test"
+		},
+		"HDInsightLinkedService_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "fd191d4e-4aff-49a7-a8b1-5176c3018752"
+		},
+		"HDInsightLinkedService_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "f4ae23f4-e575-45b6-9556-69069681ee98"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"HDInsightLinkedService_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "sshuser"
 		}
 	},
 	"variables": {
@@ -511,6 +547,51 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/HDInsightLinkedService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HDInsightOnDemand",
+				"typeProperties": {
+					"clusterType": "hadoop",
+					"clusterSize": 2,
+					"timeToLive": "00:15:00",
+					"version": "3.6",
+					"hostSubscriptionId": "[parameters('HDInsightLinkedService_properties_typeProperties_hostSubscriptionId')]",
+					"clusterResourceGroup": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterResourceGroup')]",
+					"servicePrincipalId": "[parameters('HDInsightLinkedService_properties_typeProperties_servicePrincipalId')]",
+					"osType": "Linux",
+					"tenant": "[parameters('HDInsightLinkedService_properties_typeProperties_tenant')]",
+					"clusterNamePrefix": "jllb",
+					"clusterUserName": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterUserName')]",
+					"clusterPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDInsightLinkedService_clusterPassword')]"
+					},
+					"clusterSshUserName": "[parameters('HDInsightLinkedService_properties_typeProperties_clusterSshUserName')]",
+					"clusterSshPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDInsightLinkedService_clusterSshPassword')]"
+					},
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('HDInsightLinkedService_servicePrincipalKey')]"
+					},
+					"linkedServiceName": {
+						"referenceName": "AzStorage_Staging",
+						"type": "LinkedServiceReference"
+					},
+					"headNodeSize": "",
+					"dataNodeSize": "",
+					"zookeeperNodeSize": ""
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorage_Staging')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Module2 Trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -678,13 +759,16 @@
 						"userProperties": [],
 						"typeProperties": {
 							"scriptPath": "input/FAAMerge.hql",
+							"defines": {
+								"Output": "wasbs://output@adflabstorageqlemk.blob.core.windows.net/outputfolder/"
+							},
 							"scriptLinkedService": {
 								"referenceName": "AzStorage_Staging",
 								"type": "LinkedServiceReference"
 							}
 						},
 						"linkedServiceName": {
-							"referenceName": "HDI_ADFLab",
+							"referenceName": "HDInsightLinkedService",
 							"type": "LinkedServiceReference"
 						}
 					}
@@ -696,7 +780,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HDI_ADFLab')]",
+				"[concat(variables('factoryId'), '/linkedServices/HDInsightLinkedService')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzStorage_Staging')]"
 			]
 		},
