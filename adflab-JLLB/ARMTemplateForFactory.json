@@ -856,7 +856,7 @@
 					"clusterType": "hadoop",
 					"clusterSize": 4,
 					"timeToLive": "00:15:00",
-					"version": "4.0",
+					"version": "3.6",
 					"hostSubscriptionId": "[parameters('HDI_ADFLab_properties_typeProperties_hostSubscriptionId')]",
 					"clusterResourceGroup": "[parameters('HDI_ADFLab_properties_typeProperties_clusterResourceGroup')]",
 					"servicePrincipalId": "[parameters('HDI_ADFLab_properties_typeProperties_servicePrincipalId')]",
