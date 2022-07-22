@@ -1,0 +1,22 @@
+{
+	"name": "AzureBlob_MasterFAA_File",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzStorage_Staging",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "FAAMaster.txt",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
