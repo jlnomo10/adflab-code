@@ -147,6 +147,26 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "Exec Merge FAA Files",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Exec Weather to Blob Copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Merge FAA Files",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
