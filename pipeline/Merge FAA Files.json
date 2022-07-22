@@ -16,13 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"scriptPath": "input/FAAMerge.hql",
+					"defines": {
+						"Output": "wasbs://output@adflabstorageqlemk.blob.core.windows.net/outputfolder/"
+					},
 					"scriptLinkedService": {
 						"referenceName": "AzStorage_Staging",
 						"type": "LinkedServiceReference"
 					}
 				},
 				"linkedServiceName": {
-					"referenceName": "HDI_ADFLab",
+					"referenceName": "HDInsightLinkedService",
 					"type": "LinkedServiceReference"
 				}
 			}
