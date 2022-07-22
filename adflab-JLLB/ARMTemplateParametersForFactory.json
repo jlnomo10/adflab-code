@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adflab-JLLB"
+		},
+		"SSISDB Azure Endpoint_connectionString": {
+			"value": ""
+		},
+		"AmazonS3_Source_secretAccessKey": {
+			"value": ""
+		},
+		"AzStorage_Staging_connectionString": {
+			"value": ""
+		},
+		"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "adflabsqlqlemk.database.windows.net"
+		},
+		"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "labadmin"
+		},
+		"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
+		},
+		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
+			"value": "AKIAWA72LU6M32EQG5RM"
+		}
+	}
+}
