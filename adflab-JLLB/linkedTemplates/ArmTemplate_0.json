@@ -19,6 +19,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SSISDB Azure Endpoint'"
 		},
+		"HDI_ADFLab_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDI_ADFLab'"
+		},
+		"HDI_ADFLab_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDI_ADFLab'"
+		},
+		"HDI_ADFLab_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDI_ADFLab'"
+		},
 		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 			"type": "string",
 			"defaultValue": "AKIAWA72LU6M32EQG5RM"
@@ -37,6 +49,30 @@
 		},
 		"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"type": "secureString"
+		},
+		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "1292e553-d96d-413f-9732-b33ffa3c61d7"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "adflab-test"
+		},
+		"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "fd191d4e-4aff-49a7-a8b1-5176c3018752"
+		},
+		"HDI_ADFLab_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "f4ae23f4-e575-45b6-9556-69069681ee98"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "sa"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "sa"
 		}
 	},
 	"variables": {
@@ -424,6 +460,57 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/HDI_ADFLab')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HDInsightOnDemand",
+				"typeProperties": {
+					"clusterType": "hadoop",
+					"clusterSize": 4,
+					"timeToLive": "00:15:00",
+					"version": "4.0",
+					"hostSubscriptionId": "[parameters('HDI_ADFLab_properties_typeProperties_hostSubscriptionId')]",
+					"clusterResourceGroup": "[parameters('HDI_ADFLab_properties_typeProperties_clusterResourceGroup')]",
+					"servicePrincipalId": "[parameters('HDI_ADFLab_properties_typeProperties_servicePrincipalId')]",
+					"osType": "Linux",
+					"tenant": "[parameters('HDI_ADFLab_properties_typeProperties_tenant')]",
+					"clusterNamePrefix": "",
+					"clusterUserName": "[parameters('HDI_ADFLab_properties_typeProperties_clusterUserName')]",
+					"clusterPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDI_ADFLab_clusterPassword')]"
+					},
+					"clusterSshUserName": "[parameters('HDI_ADFLab_properties_typeProperties_clusterSshUserName')]",
+					"clusterSshPassword": {
+						"type": "SecureString",
+						"value": "[parameters('HDI_ADFLab_clusterSshPassword')]"
+					},
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('HDI_ADFLab_servicePrincipalKey')]"
+					},
+					"additionalLinkedServiceNames": [
+						{
+							"referenceName": "AzStorage_Staging",
+							"type": "LinkedServiceReference"
+						}
+					],
+					"linkedServiceName": {
+						"referenceName": "AzStorage_Staging",
+						"type": "LinkedServiceReference"
+					},
+					"headNodeSize": "",
+					"dataNodeSize": "",
+					"zookeeperNodeSize": ""
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzStorage_Staging')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Module2 Trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -569,6 +656,48 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/REST_Weather_File')]",
 				"[concat(variables('factoryId'), '/datasets/AzureBlob_Weather_File')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Merge FAA Files')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Run FAA Hive Merge",
+						"type": "HDInsightHive",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"scriptPath": "input/FAAMerge.hql",
+							"scriptLinkedService": {
+								"referenceName": "AzStorage_Staging",
+								"type": "LinkedServiceReference"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "HDI_ADFLab",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HDI_ADFLab')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzStorage_Staging')]"
 			]
 		},
 		{
@@ -725,6 +854,27 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "Exec Merge FAA Files",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Exec Weather to Blob Copy",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Merge FAA Files",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -742,7 +892,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/S3_MasterFAA_File')]",
 				"[concat(variables('factoryId'), '/datasets/AzureBlob_MasterFAA_File')]",
-				"[concat(variables('factoryId'), '/pipelines/Weather to Blob Copy')]"
+				"[concat(variables('factoryId'), '/pipelines/Weather to Blob Copy')]",
+				"[concat(variables('factoryId'), '/pipelines/Merge FAA Files')]"
 			]
 		}
 	]

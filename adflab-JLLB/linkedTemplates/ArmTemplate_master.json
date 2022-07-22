@@ -19,6 +19,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SSISDB Azure Endpoint'"
 		},
+		"HDI_ADFLab_clusterPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterPassword' of 'HDI_ADFLab'"
+		},
+		"HDI_ADFLab_clusterSshPassword": {
+			"type": "secureString",
+			"metadata": "Secure string for 'clusterSshPassword' of 'HDI_ADFLab'"
+		},
+		"HDI_ADFLab_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'HDI_ADFLab'"
+		},
 		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 			"type": "string",
 			"defaultValue": "AKIAWA72LU6M32EQG5RM"
@@ -37,6 +49,30 @@
 		},
 		"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"type": "secureString"
+		},
+		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+			"type": "string",
+			"defaultValue": "1292e553-d96d-413f-9732-b33ffa3c61d7"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+			"type": "string",
+			"defaultValue": "adflab-test"
+		},
+		"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "fd191d4e-4aff-49a7-a8b1-5176c3018752"
+		},
+		"HDI_ADFLab_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "f4ae23f4-e575-45b6-9556-69069681ee98"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterUserName": {
+			"type": "string",
+			"defaultValue": "sa"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+			"type": "string",
+			"defaultValue": "sa"
 		},
 		"containerUri": {
 			"type": "string",
@@ -74,6 +110,15 @@
 					"SSISDB Azure Endpoint_connectionString": {
 						"value": "[parameters('SSISDB Azure Endpoint_connectionString')]"
 					},
+					"HDI_ADFLab_clusterPassword": {
+						"value": "[parameters('HDI_ADFLab_clusterPassword')]"
+					},
+					"HDI_ADFLab_clusterSshPassword": {
+						"value": "[parameters('HDI_ADFLab_clusterSshPassword')]"
+					},
+					"HDI_ADFLab_servicePrincipalKey": {
+						"value": "[parameters('HDI_ADFLab_servicePrincipalKey')]"
+					},
 					"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 						"value": "[parameters('AmazonS3_Source_properties_typeProperties_accessKeyId')]"
 					},
@@ -88,6 +133,24 @@
 					},
 					"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 						"value": "[parameters('ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_hostSubscriptionId')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterResourceGroup')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_servicePrincipalId')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_tenant": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_tenant')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_clusterUserName": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterUserName')]"
+					},
+					"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+						"value": "[parameters('HDI_ADFLab_properties_typeProperties_clusterSshUserName')]"
 					}
 				}
 			},

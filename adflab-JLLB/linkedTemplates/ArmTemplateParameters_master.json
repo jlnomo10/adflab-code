@@ -14,6 +14,15 @@
 		"SSISDB Azure Endpoint_connectionString": {
 			"value": ""
 		},
+		"HDI_ADFLab_clusterPassword": {
+			"value": ""
+		},
+		"HDI_ADFLab_clusterSshPassword": {
+			"value": ""
+		},
+		"HDI_ADFLab_servicePrincipalKey": {
+			"value": ""
+		},
 		"AmazonS3_Source_properties_typeProperties_accessKeyId": {
 			"value": "AKIAWA72LU6M32EQG5RM"
 		},
@@ -28,6 +37,24 @@
 		},
 		"ADFLab-SSIS_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"value": ""
+		},
+		"HDI_ADFLab_properties_typeProperties_hostSubscriptionId": {
+			"value": "1292e553-d96d-413f-9732-b33ffa3c61d7"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterResourceGroup": {
+			"value": "adflab-test"
+		},
+		"HDI_ADFLab_properties_typeProperties_servicePrincipalId": {
+			"value": "fd191d4e-4aff-49a7-a8b1-5176c3018752"
+		},
+		"HDI_ADFLab_properties_typeProperties_tenant": {
+			"value": "f4ae23f4-e575-45b6-9556-69069681ee98"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterUserName": {
+			"value": "sa"
+		},
+		"HDI_ADFLab_properties_typeProperties_clusterSshUserName": {
+			"value": "sa"
 		},
 		"containerUri": {
 			"value": ""
