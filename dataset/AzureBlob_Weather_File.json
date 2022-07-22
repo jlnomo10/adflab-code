@@ -1,0 +1,23 @@
+{
+	"name": "AzureBlob_Weather_File",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzStorage_Staging",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "201612-WeatherData.txt",
+				"container": "input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

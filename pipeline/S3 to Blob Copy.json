@@ -127,6 +127,26 @@
 						"recipient": "@{pipeline().parameters.recipient}"
 					}
 				}
+			},
+			{
+				"name": "Exec Weather to Blob Copy",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Send Success Email",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Weather to Blob Copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
